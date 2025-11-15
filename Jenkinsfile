@@ -15,27 +15,27 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './mvnw clean package'
+                bat '.\\mvnw.cmd clean package'
             }
         }
 
         stage('Run Tests') {
             steps {
-                sh './mvnw test'
+                bat '.\\mvnw.cmd test'
             }
         }
 
         stage('Docker Build') {
             steps {
-                sh 'docker build -t $DOCKER_IMAGE:latest .'
+                bat 'docker build -t %DOCKER_IMAGE%:latest .'
             }
         }
 
         stage('Docker Push') {
-            when { expression { return false } } // enable if you want push
+            when { expression { return false } } // enable later
             steps {
-                sh 'docker login -u $DOCKER_USER -p $DOCKER_PASS'
-                sh 'docker push $DOCKER_IMAGE:latest'
+                bat 'docker login -u %DOCKER_USER% -p %DOCKER_PASS%'
+                bat 'docker push %DOCKER_IMAGE%:latest'
             }
         }
     }
