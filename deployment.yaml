@@ -16,8 +16,8 @@ spec:
     spec:
       containers:
         - name: patient-devops-app
-          image: abhishek/patient-devops-app:latest
-          imagePullPolicy: IfNotPresent
+          image: appkle/patient-devops-app:1.0
+          imagePullPolicy: Never
           ports:
             - containerPort: 8090
           resources:

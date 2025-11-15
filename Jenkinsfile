@@ -9,13 +9,13 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/abhishekparipally1234/patient-devops-app.git'
+                git branch: 'master', url: 'https://github.com/abhishekparipally1234/patient-devops-app.git'
             }
         }
 
         stage('Build') {
             steps {
-                sh './mvnw clean package -DskipTests'
+                sh './mvnw clean package'
             }
         }
 

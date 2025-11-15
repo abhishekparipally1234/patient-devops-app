@@ -1,63 +1,40 @@
--- Drop table if exists (idempotent for H2)
-DROP TABLE IF EXISTS patient;
+----------------------------------------------------
+-- 1️⃣ CREATE (INSERT records)
+----------------------------------------------------
 
--- Create Table
-CREATE TABLE patient (
-    id BIGINT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(100),
-    age INT,
-    diagnosis VARCHAR(200)
-);
+INSERT INTO patients (name, age, disease) VALUES ('Ravi Kumar', 30, 'Fever');
+INSERT INTO patients (name, age, disease) VALUES ('Priya Sharma', 25, 'Cold');
+INSERT INTO patients (name, age, disease) VALUES ('Anil Rao', 45, 'Diabetes');
+INSERT INTO patients (name, age, disease) VALUES ('Meena Patel', 52, 'Hypertension');
 
--- ============================
--- INSERT (Create)
--- ============================
+----------------------------------------------------
+-- 2️⃣ READ (SELECT records)
+-- (This will execute but results are not stored; it's only for log visibility)
+----------------------------------------------------
 
-INSERT INTO patient (name, age, diagnosis) VALUES
-('John Doe', 30, 'Flu'),
-('Alice Smith', 25, 'Allergy'),
-('Robert Brown', 40, 'Diabetes'),
-('Emily Clark', 32, 'Migraine');
+SELECT * FROM patients;
 
--- ============================
--- READ (Select)
--- ============================
+----------------------------------------------------
+-- 3️⃣ UPDATE (Modify existing records)
+----------------------------------------------------
 
--- Get all patients
-SELECT * FROM patient;
+-- Update disease
+UPDATE patients SET disease = 'Recovered - Observation' WHERE name = 'Ravi Kumar';
 
--- Get patient by ID
-SELECT * FROM patient WHERE id = 1;
+-- Update age
+UPDATE patients SET age = 26 WHERE name = 'Priya Sharma';
 
--- Get patients older than 30
-SELECT * FROM patient WHERE age > 30;
+-- Update disease field
+UPDATE patients SET disease = 'Controlled Diabetes' WHERE name = 'Anil Rao';
 
--- ============================
--- UPDATE
--- ============================
+----------------------------------------------------
+-- 4️⃣ DELETE (Soft delete: deleting 1 record)
+----------------------------------------------------
 
--- Update patient diagnosis
-UPDATE patient
-SET diagnosis = 'Recovered'
-WHERE id = 1;
+DELETE FROM patients WHERE name = 'Meena Patel';
 
--- Update patient age
-UPDATE patient
-SET age = 29
-WHERE name = 'Alice Smith';
+----------------------------------------------------
+-- 5️⃣ FINAL READ (To verify final dataset in logs)
+----------------------------------------------------
 
--- ============================
--- DELETE
--- ============================
-
--- Delete a specific patient
-DELETE FROM patient WHERE id = 3;
-
--- Delete based on condition
-DELETE FROM patient WHERE age < 27;
-
-
--- ============================
--- FINAL DATA CHECK
--- ============================
-SELECT * FROM patient;
+SELECT * FROM patients;
